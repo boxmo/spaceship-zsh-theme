@@ -29,7 +29,7 @@ SPACESHIP_NVM_SYMBOL="${SPACESHIP_NVM_SYMBOL:-⬢}"
 
 # RUBY
 SPACESHIP_RUBY_SHOW="${SPACESHIP_RUBY_SHOW:-true}"
-SPACESHIP_RUBY_SYMBOL="${SPACESHIP_RUBY_SYMBOL:-💎}"
+SPACESHIP_RUBY_SYMBOL="${SPACESHIP_RUBY_SYMBOL:-💎z}"
 
 # VENV
 SPACESHIP_VENV_SHOW="${SPACESHIP_VENV_SHOW:-true}"
@@ -193,9 +193,10 @@ spaceship_ruby_version() {
   [[ $SPACESHIP_RUBY_SHOW == false ]] && return
 
   if command -v rvm-prompt > /dev/null 2>&1; then
-    if rvm gemset list | grep "=> (default)"; then
-      ruby_version=$(rvm-prompt i v g)
-    fi
+    ruby_version=$(rvm-prompt i v g)
+    # if rvm gemset list | grep "=> (default)"; then
+    #   ruby_version=$(rvm-prompt i v g)
+    # fi
   elif command -v chruby > /dev/null 2>&1; then
     ruby_version=$(chruby | sed -n -e 's/ \* //p')
   elif command -v rbenv > /dev/null 2>&1; then
@@ -206,7 +207,7 @@ spaceship_ruby_version() {
 
   echo -n " %Bvia%b "
   echo -n "%{$fg_bold[red]%}"
-  echo -n "${SPACESHIP_RUBY_SYMBOL}  ${ruby_version}"
+  echo -n "${SPACESHIP_RUBY_SYMBOL}${ruby_version}"
   echo -n "%{$reset_color%}"
 }
 
