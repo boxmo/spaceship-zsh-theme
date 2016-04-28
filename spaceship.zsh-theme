@@ -10,8 +10,8 @@ NEWLINE='
 
 # PROMPT
 SPACESHIP_PROMPT_SYMBOL="${SPACESHIP_PROMPT_SYMBOL:-➔}"
-SPACESHIP_PROMPT_ADD_NEWLINE="${SPACESHIP_PROMPT_ADD_NEWLINE:-true}"
-SPACESHIP_PROMPT_SEPARATE_LINE="${SPACESHIP_PROMPT_SEPARATE_LINE:-true}"
+SPACESHIP_PROMPT_ADD_NEWLINE="${SPACESHIP_PROMPT_ADD_NEWLINE:-false}"
+SPACESHIP_PROMPT_SEPARATE_LINE="${SPACESHIP_PROMPT_SEPARATE_LINE:-false}"
 SPACESHIP_PROMPT_TRUNC="${SPACESHIP_PROMPT_TRUNC:-3}"
 
 # GIT
@@ -29,10 +29,8 @@ SPACESHIP_NVM_SYMBOL="${SPACESHIP_NVM_SYMBOL:-⬢}"
 
 # RUBY
 SPACESHIP_RUBY_SHOW="${SPACESHIP_RUBY_SHOW:-true}"
-SPACESHIP_RUBY_SYMBOL="${SPACESHIP_RUBY_SYMBOL:-💎z}"
+SPACESHIP_RUBY_SYMBOL="${SPACESHIP_RUBY_SYMBOL:-®}"
 
-# VENV
-SPACESHIP_VENV_SHOW="${SPACESHIP_VENV_SHOW:-true}"
 
 # Username.
 # If user is root, then pain it in red. Otherwise, just print in yellow.
@@ -157,18 +155,6 @@ spaceship_git_status() {
   fi
 }
 
-# Virtual environment.
-# Show current virtual environment (Python).
-spaceship_venv_status() {
-  [[ $SPACESHIP_VENV_SHOW == false ]] && return
-
-  # Check if the current directory running via Virtualenv
-  [ -n "$VIRTUAL_ENV" ] || return
-  echo -n " %Bvia%b "
-  echo -n "%{$fg_bold[blue]%}"
-  echo -n "$(basename $VIRTUAL_ENV)"
-  echo -n "%{$reset_color%}"
-}
 
 # NVM
 # Show current version of node, exception system.
@@ -181,9 +167,9 @@ spaceship_nvm_status() {
   [[ "${nvm_status}" == "system" ]] && return
   nvm_status=${nvm_status}
 
-  echo -n " %Bvia%b "
+  # echo -n " %Bvia%b "
   echo -n "%{$fg_bold[green]%}"
-  echo -n "${SPACESHIP_NVM_SYMBOL} ${nvm_status}"
+  echo -n " ${SPACESHIP_NVM_SYMBOL} ${nvm_status}"
   echo -n "%{$reset_color%}"
 }
 
@@ -194,9 +180,6 @@ spaceship_ruby_version() {
 
   if command -v rvm-prompt > /dev/null 2>&1; then
     ruby_version=$(rvm-prompt i v g)
-    # if rvm gemset list | grep "=> (default)"; then
-    #   ruby_version=$(rvm-prompt i v g)
-    # fi
   elif command -v chruby > /dev/null 2>&1; then
     ruby_version=$(chruby | sed -n -e 's/ \* //p')
   elif command -v rbenv > /dev/null 2>&1; then
@@ -205,9 +188,9 @@ spaceship_ruby_version() {
     return
   fi
 
-  echo -n " %Bvia%b "
   echo -n "%{$fg_bold[red]%}"
-  echo -n "${SPACESHIP_RUBY_SYMBOL}${ruby_version}"
+  # echo -n "${SPACESHIP_RUBY_SYMBOL} ${ruby_version}"
+  echo -n "${ruby_version}"
   echo -n "%{$reset_color%}"
 }
 
@@ -226,8 +209,8 @@ spaceship_build_prompt() {
   spaceship_current_dir
   spaceship_git_status
   spaceship_nvm_status
+	echo -n " | "
   spaceship_ruby_version
-  spaceship_venv_status
 }
 
 # Compose PROMPT
