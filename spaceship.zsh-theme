@@ -12,7 +12,7 @@ NEWLINE='
 SPACESHIP_PROMPT_SYMBOL="${SPACESHIP_PROMPT_SYMBOL:-➔}"
 SPACESHIP_PROMPT_ADD_NEWLINE="${SPACESHIP_PROMPT_ADD_NEWLINE:-false}"
 SPACESHIP_PROMPT_SEPARATE_LINE="${SPACESHIP_PROMPT_SEPARATE_LINE:-false}"
-SPACESHIP_PROMPT_TRUNC="${SPACESHIP_PROMPT_TRUNC:-3}"
+SPACESHIP_PROMPT_TRUNC="${SPACESHIP_PROMPT_TRUNC:-2}"
 
 # GIT
 SPACESHIP_GIT_SHOW="${SPACESHIP_GIT_SHOW:-true}"
@@ -63,9 +63,7 @@ spaceship_host() {
 # Current directory.
 # Return only three last items of path
 spaceship_current_dir() {
-  echo -n "%{$fg_bold[cyan]%}"
   echo -n "%${SPACESHIP_PROMPT_TRUNC}~";
-  echo -n "%{$reset_color%}"
 }
 
 # Uncommitted changes.
@@ -167,9 +165,8 @@ spaceship_nvm_status() {
   [[ "${nvm_status}" == "system" ]] && return
   nvm_status=${nvm_status}
 
-  # echo -n " %Bvia%b "
   echo -n "%{$fg_bold[green]%}"
-  echo -n " ${SPACESHIP_NVM_SYMBOL} ${nvm_status}"
+  echo -n "${SPACESHIP_NVM_SYMBOL} ${nvm_status}"
   echo -n "%{$reset_color%}"
 }
 
@@ -205,12 +202,15 @@ spaceship_return_status() {
 
 # Build prompt line
 spaceship_build_prompt() {
-  spaceship_host
+  # spaceship_host
+  spaceship_user
   spaceship_current_dir
   spaceship_git_status
+	echo -n " ("
   spaceship_nvm_status
 	echo -n " | "
   spaceship_ruby_version
+	echo -n ")"
 }
 
 # Compose PROMPT
