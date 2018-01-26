@@ -166,7 +166,8 @@ spaceship_nvm_status() {
   nvm_status=${nvm_status}
 
   echo -n "%{$fg_bold[green]%}"
-  echo -n "${SPACESHIP_NVM_SYMBOL} ${nvm_status}"
+  # echo -n "${SPACESHIP_NVM_SYMBOL} ${nvm_status}"
+  echo -n "${nvm_status}"
   echo -n "%{$reset_color%}"
 }
 
@@ -204,6 +205,9 @@ spaceship_return_status() {
 spaceship_build_prompt() {
   # spaceship_host
   spaceship_user
+  echo -n "%{$fg_bold[cyan]%}"
+  echo -n "@"
+  echo -n "%{$reset_color%}"
   spaceship_current_dir
   spaceship_git_status
 	echo -n " ("
