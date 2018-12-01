@@ -25,7 +25,7 @@ Currently it shows:
 * Current Ruby version, through RVM/RBENV/CHRUBY (`💎`).
 * Current Python virtualenv.
 
-Want more features? Please, [open an issue](https://github.com/denysdovhan/spaceship-zsh-theme/issues/new) or send pull request.
+Want more features? Please, [open an issue](https://github.com/boxmo/spaceship-zsh-theme/issues/new) or send pull request.
 
 ## Requirements
 
@@ -41,7 +41,7 @@ For correct work you will first need:
 Installing using **curl**:
 
 ```
-curl -o - https://raw.githubusercontent.com/denysdovhan/spaceship-zsh-theme/master/install.sh | zsh
+curl -o - https://raw.githubusercontent.com/boxmo/spaceship-zsh-theme/master/install.sh | zsh
 ```
 
 Installing using **wget**:
